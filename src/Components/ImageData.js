@@ -11,6 +11,10 @@ const ImageData = (props) => {
     const [hits, setHits] = useState(1);
 
     useEffect(() => {
+        if (localStorage.getItem("Likes") === null || undefined) {
+            localStorage.setItem("Likes", "[]");
+        }
+        
         setLikes(JSON.parse(localStorage.getItem("Likes")));
         setQuery(props.query)
     }, [props]);
