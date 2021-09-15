@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
+import LikeButton from "./LikeButton";
 import Loading from './Loading';
-import NoResults from './NoResults'
+import NoResults from './NoResults';
 
 const ImageData = (props) => {
 
@@ -16,13 +17,17 @@ const ImageData = (props) => {
         }
         
         setLikes(JSON.parse(localStorage.getItem("Likes")));
+    }, []);
+
+    useEffect(() => {
         setQuery(props.query)
     }, [props]);
 
     useEffect(() => {
       const url = new URL("https://images-api.nasa.gov/search");
       url.search = new URLSearchParams({
-        q: query
+        q: query,
+        media_type: "image"
       });
     
       fetch(url).then((data) => {
@@ -33,28 +38,6 @@ const ImageData = (props) => {
         setLoading(false)
       })
     }, [query])
-
-    const like = (e) => {
-        if (localStorage.getItem("Likes") === null || undefined) {
-            localStorage.setItem("Likes", "[]");
-        }
-
-        const likes = JSON.parse(localStorage.getItem("Likes"));
-
-        if (JSON.parse(localStorage.getItem("Likes")).includes(e.target.attributes.id.value)) {
-            const filteredLikes = likes.filter((item) => {
-                return item !== e.target.attributes.id.value;
-            });
-            const string = JSON.stringify(filteredLikes);
-            localStorage.setItem("Likes", string);
-            setLikes(JSON.parse(localStorage.getItem("Likes")));
-        } else {
-            likes.push(e.target.attributes.id.value);
-            const string = JSON.stringify(likes);
-            localStorage.setItem("Likes", string);
-            setLikes(JSON.parse(localStorage.getItem("Likes")));
-        }
-    }
  
     return (
         <main className="wrapper">
@@ -72,11 +55,7 @@ const ImageData = (props) => {
                             <li key={element.data[0].nasa_id} className="elementGrid">
                                 <div className="imageContainer">
                                     <img src={element.links[0].href} alt={`A photograph titled: ${element.data[0].title}`}/>
-                                    {
-                                        likes.includes(element.data[0].nasa_id)
-                                        ?                                 <button className="like" style={{color: "#FF0000"}} id={element.data[0].nasa_id} onClick={(e) => like(e)}>♥</button>
-                                        :                                 <button className="like" id={element.data[0].nasa_id} onClick={(e) => like(e)}>♥</button>
-                                    }
+                                    <LikeButton likes={likes} setLikes={setLikes} element={element.data[0].nasa_id}/>
                                 </div>
                                 <div className="desc">
                                     <p className="title">{element.data[0].title}</p>
