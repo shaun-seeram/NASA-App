@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import LikeButton from "./LikeButton";
+import LinkButton from "./LinkButton"
 import Loading from './Loading';
 import NoResults from './NoResults';
 
@@ -53,8 +54,9 @@ const ImageData = (props) => {
                             ? null
                             :
                             <li key={element.data[0].nasa_id} className="elementGrid">
-                                <div className="imageContainer">
+                                <div className={`imageContainer ${element.data[0].nasa_id}`}>
                                     <img src={element.links[0].href} alt={`A photograph titled: ${element.data[0].title}`}/>
+                                    <LinkButton id={element.data[0].nasa_id} img={element.links[0].href} />
                                     <LikeButton likes={likes} setLikes={setLikes} element={element.data[0].nasa_id}/>
                                 </div>
                                 <div className="desc">
@@ -65,10 +67,6 @@ const ImageData = (props) => {
                                     ? element.data[0].description_508
                                     : element.data[0].description
                                     }</p>
-                                    <div className="sharableLink">
-                                        <p className="linkText">{element.links[0].href}</p>
-                                        <p className="linkIcon">🔗</p>
-                                    </div>
                                 </div>
                             </li>
                         )

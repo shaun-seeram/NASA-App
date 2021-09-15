@@ -1,9 +1,18 @@
+import { useEffect } from "react";
+
 const Header = (props) => {
 
     const passQuery = (e) => {
         e.preventDefault();
         props.setQuery(e.target[0].value);
     }
+
+    useEffect(() => {
+        document.querySelectorAll(".star").forEach((star) => {
+            star.style.top = `${Math.ceil(Math.random()*90)}%` 
+            star.style.left = `${Math.ceil(Math.random()*90)}%` 
+        })
+    }, []);
 
     return (
         <header>
@@ -12,11 +21,14 @@ const Header = (props) => {
                 <form onSubmit={(e) => passQuery(e)}>
                     <label htmlFor="search" className="sr-only">Enter your search: </label>
                     <input type="text" id="search" placeholder="Search for space stuff!" />
-                    <input type="submit" value="Search" />
+                    <input type="submit" value="Search 🚀" />
                 </form>
-                <p className="star star1">⋆</p>
-                <p className="star star2">⋆</p>
-                <p className="star star3">⋆</p>
+                <p className="star">⋆</p>
+                <p className="star">⋆</p>
+                <p className="star">⋆</p>
+                <p className="star">⋆</p>
+                <p className="star">⋆</p>
+                <p className="star">⋆</p>
             </div>
         </header>
     )

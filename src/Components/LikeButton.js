@@ -20,8 +20,8 @@ const LikeButton = (props) => {
 
     return (
         props.likes.includes(props.element)
-        ? <button className="like" style={{color: "#FF0000"}} id={props.element} onClick={(e) => like(e)}>♥</button>
-        : <button className="like" id={props.element} onClick={(e) => like(e)}>♥</button>
+        ? <button aria-label="Unlike" className="like" style={{color: "#FF0000"}} id={props.element} onClick={(e) => like(e)}>♥</button>
+        : <button aria-label="Like" className="like" id={props.element} onClick={(e) => like(e)}>♥</button>
     )
 }
 
