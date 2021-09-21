@@ -11,7 +11,8 @@ const Header = (props) => {
         document.querySelectorAll(".star").forEach((star) => {
             star.style.top = `${Math.ceil(Math.random()*90)}%` 
             star.style.left = `${Math.ceil(Math.random()*90)}%` 
-        })
+        });
+
     }, []);
 
     return (

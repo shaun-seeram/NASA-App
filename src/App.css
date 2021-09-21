@@ -39,6 +39,10 @@ ul, li {
   padding: 0;
 }
 
+button {
+  background-color: #FFF;
+}
+
 /* Header Styles */
 
 header {
@@ -143,6 +147,8 @@ input[type="submit"] {
   left: 0;
   right: 0;
   overflow: scroll;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 img {
@@ -154,9 +160,18 @@ img {
 
 .desc {
   overflow: scroll;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
   border: 2px dashed blanchedalmond;
   border-radius: 1rem;
   padding: 1rem;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.desc::-webkit-scrollbar,
+.linkDiv::-webkit-scrollbar {
+  display: none;
 }
 
 .title {
